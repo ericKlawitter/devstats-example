@@ -1,15 +1,15 @@
 ---
 projects:
-  homebrew:
+  knative:
     order: 1
-    name: Homebrew
+    name: Knative
     status: "-"
     command_line:
-      - Homebrew
-    start_date: 2015-01-01T00:00:00Z
+      - Knative
+    start_date: 2018-02-01T00:00:00Z
     join_date: null
-    psql_db: homebrew
-    main_repo: 'Homebrew/brew'
+    psql_db: knative
+    main_repo: 'knative/serving'
     annotation_regexp: '^\d+\.\d+\.\d+$'
     files_skip_pattern: ''
     # disabled: true

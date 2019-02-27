@@ -191,7 +191,7 @@
       "starred": false,
       "tags": [
         "dashboard",
-        "homebrew"
+        "knative"
       ],
       "title": "All [[full_name]] Dashboards",
       "transparent": false,
@@ -204,15 +204,15 @@
   "tags": [
     "home",
     "all",
-    "homebrew"
+    "knative"
   ],
   "templating": {
     "list": [
       {
         "allValue": null,
         "current": {
-          "text": "Homebrew",
-          "value": "Homebrew"
+          "text": "Knative",
+          "value": "Knative"
         },
         "datasource": "psql",
         "hide": 2,

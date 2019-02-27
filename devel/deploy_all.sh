@@ -42,7 +42,7 @@ then
   ./devel/init_database.sh || exit 1
 fi
 
-PROJ=homebrew PROJDB=homebrew PROJREPO="Homebrew/brew" ORGNAME="Homebrew" PORT=3001 ICON="-" GRAFSUFF=homebrew GA="-" ./devel/deploy_proj.sh || exit 2
+PROJ=knative PROJDB=knative PROJREPO="Knative/serving" ORGNAME="Knative" PORT=3001 ICON="-" GRAFSUFF=knative GA="-" ./devel/deploy_proj.sh || exit 2
 
 if [ -z "$SKIPVARS" ]
 then

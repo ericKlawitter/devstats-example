@@ -15,7 +15,7 @@ then
 fi
 if [ -z "$ONLY" ]
 then
-  all="homebrew"
+  all="knative"
 else
   all=$ONLY
 fi

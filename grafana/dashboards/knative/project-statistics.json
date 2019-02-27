@@ -148,7 +148,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "homebrew",
+    "knative",
     "table"
   ],
   "templating": {
@@ -156,8 +156,8 @@
       {
         "allValue": null,
         "current": {
-          "text": "Homebrew",
-          "value": "Homebrew"
+          "text": "Knative",
+          "value": "Knative"
         },
         "datasource": "psql",
         "hide": 2,

@@ -32,8 +32,8 @@
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
-  "id": 3,
-  "iteration": 1534950763322,
+  "id": 6,
+  "iteration": 1535965160796,
   "links": [],
   "panels": [
     {
@@ -43,7 +43,7 @@
       "dashes": false,
       "datasource": "psql",
       "decimals": 2,
-      "description": "Measures company [[metric]]. Independent means developers working on their own.",
+      "description": "Measures user [[metric]].",
       "fill": 6,
       "gridPos": {
         "h": 17,
@@ -99,9 +99,9 @@
           "measurement": "sig_federation_d",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT /^[[companies]]$/ FROM \"company_[[repogroup]]_[[metric]]_[[period]]\" WHERE $timeFilter",
+          "query": "",
           "rawQuery": true,
-          "rawSql": "select\n  time,\n  ${companies:csv}\nfrom\n  scompany_activity\nwhere\n  $__timeFilter(time)\n  and period = '[[period]]'\n  and series = 'company[[repogroup]][[metric]]'\norder by\n  time",
+          "rawSql": "select\n  time,\n  ${users:csv}\nfrom\n  suser_activity\nwhere\n  $__timeFilter(time)\n  and period = '[[period]]'\n  and series = 'user[[repogroup]][[metric]]'\norder by\n  time",
           "refId": "B",
           "resultFormat": "time_series",
           "select": [
@@ -120,7 +120,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Companies [[metric]] metric ([[repogroup_name]], [[period]])",
+      "title": "Users [[metric]] metric ([[repogroup_name]], [[period]])",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -138,7 +138,7 @@
       "yaxes": [
         {
           "format": "short",
-          "label": "Per company",
+          "label": "Value",
           "logBase": 1,
           "max": null,
           "min": "0",
@@ -166,7 +166,7 @@
       "dashes": false,
       "datasource": "psql",
       "decimals": 2,
-      "description": "Measures company [[metric]]. Independent means developers working on their own.",
+      "description": "Measures user [[metric]].",
       "fill": 6,
       "gridPos": {
         "h": 16,
@@ -212,9 +212,9 @@
           "measurement": "sig_federation_d",
           "orderByTime": "ASC",
           "policy": "default",
-          "query": "SELECT /^[[companies]]$/ FROM \"company_[[repogroup]]_[[metric]]_[[period]]\" WHERE $timeFilter",
+          "query": "",
           "rawQuery": true,
-          "rawSql": "select\n  time,\n  ${companies:csv}\nfrom\n  scompany_activity\nwhere\n  $__timeFilter(time)\n  and period = '[[period]]'\n  and series = 'company[[repogroup]][[metric]]'\norder by\n  time",
+          "rawSql": "select\n  time,\n  ${users:csv}\nfrom\n  suser_activity\nwhere\n  $__timeFilter(time)\n  and period = '[[period]]'\n  and series = 'user[[repogroup]][[metric]]'\norder by\n  time",
           "refId": "B",
           "resultFormat": "time_series",
           "select": [
@@ -233,7 +233,7 @@
       "thresholds": [],
       "timeFrom": null,
       "timeShift": null,
-      "title": "Companies [[metric]] metric ([[repogroup_name]], [[period]])",
+      "title": "Users [[metric]] metric ([[repogroup_name]], [[period]])",
       "tooltip": {
         "shared": true,
         "sort": 2,
@@ -276,17 +276,16 @@
   "schemaVersion": 16,
   "style": "dark",
   "tags": [
-    "companies",
     "dashboard",
-    "homebrew"
+    "knative"
   ],
   "templating": {
     "list": [
       {
         "allValue": null,
         "current": {
-          "text": "Homebrew",
-          "value": "Homebrew"
+          "text": "Knative",
+          "value": "Knative"
         },
         "datasource": "psql",
         "hide": 2,
@@ -310,8 +309,8 @@
         "allValue": null,
         "current": {
           "tags": [],
-          "text": "7 Days MA",
-          "value": "d7"
+          "text": "24 Hours MA",
+          "value": "h24"
         },
         "hide": 0,
         "includeAll": false,
@@ -321,11 +320,21 @@
         "options": [
           {
             "selected": false,
+            "text": "Hour",
+            "value": "h"
+          },
+          {
+            "selected": true,
+            "text": "24 Hours MA",
+            "value": "h24"
+          },
+          {
+            "selected": false,
             "text": "Day",
             "value": "d"
           },
           {
-            "selected": true,
+            "selected": false,
             "text": "7 Days MA",
             "value": "d7"
           },
@@ -374,11 +383,6 @@
           },
           {
             "selected": false,
-            "text": "Active authors",
-            "value": "authors"
-          },
-          {
-            "selected": false,
             "text": "Issues created",
             "value": "issues"
           },
@@ -399,16 +403,11 @@
           },
           {
             "selected": false,
-            "text": "Contributors",
-            "value": "contributors"
-          },
-          {
-            "selected": false,
             "text": "Added comments",
             "value": "comments"
           }
         ],
-        "query": "activity,authors,issues,prs,commits,comments",
+        "query": "activity,issues,prs,commits,contributions,comments",
         "skipUrlSync": false,
         "type": "custom"
       },
@@ -469,11 +468,11 @@
         "datasource": "psql",
         "hide": 0,
         "includeAll": true,
-        "label": "Companies",
+        "label": "Users",
         "multi": true,
-        "name": "companies",
+        "name": "users",
         "options": [],
-        "query": "select '\"' || companies_name || '\"' from tcompanies order by time asc",
+        "query": "select '\"' || users_name || '\"' from tusers order by time asc",
         "refresh": 1,
         "regex": "",
         "skipUrlSync": false,
@@ -487,7 +486,7 @@
     ]
   },
   "time": {
-    "from": "now-1y",
+    "from": "now-30d",
     "to": "now"
   },
   "timepicker": {
@@ -516,7 +515,7 @@
     ]
   },
   "timezone": "",
-  "title": "Companies stats",
-  "uid": "4",
+  "title": "Users stats",
+  "uid": "48",
   "version": 4
 }
