@@ -14,7 +14,7 @@ set -o pipefail
 GHA2DB_PROJECT=knative PG_DB=knative GHA2DB_LOCAL=1 ./structure 2>>errors.txt | tee -a run.log || exit 1
 sudo -u postgres psql knative -c "create extension if not exists pgcrypto" || exit 1
 ./devel/ro_user_grants.sh knative || exit 2
-GHA2DB_PROJECT=knative PG_DB=knative GHA2DB_LOCAL=1 ./gha2db 2015-01-01 0 today now Knative 2>>errors.txt | tee -a run.log || exit 3
+GHA2DB_PROJECT=knative PG_DB=knative GHA2DB_LOCAL=1 ./gha2db 2019-01-22 0 today now Knative 2>>errors.txt | tee -a run.log || exit 3
 # You can get data even starting at 2012-07-01 but special calls are needed before 2015-01-01 - GitHub used different event format then.
 # GHA2DB_PROJECT=knative PG_DB=knative GHA2DB_LOCAL=1 GHA2DB_OLDFMT=1 GHA2DB_EXACT=1 ./gha2db 2012-07-01 0 2014-12-31 23 Knative 2>>errors.txt | tee -a run.log || exit 4
 GHA2DB_PROJECT=knative PG_DB=knative GHA2DB_LOCAL=1 GHA2DB_MGETC=y GHA2DB_SKIPTABLE=1 GHA2DB_INDEX=1 ./structure 2>>errors.txt | tee -a run.log || exit 5
