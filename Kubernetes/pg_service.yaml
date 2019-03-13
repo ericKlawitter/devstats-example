@@ -1,0 +1,50 @@
+apiVersion: serving.knative.dev/v1alpha1
+kind: Service
+metadata:
+  name: postgredb
+  namespace: devstats-postgres
+spec:
+  clusterIP: "None"
+  ports:
+  - port: 5432
+  selector:
+    app: postgredb
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: postgredb
+  namespace: devstats-postgres
+  labels:
+    app: postgredb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgredb
+  serviceName: postgredb
+  template:
+    metadata:
+      labels:
+        app: postgredb
+    spec:
+      containers:
+      - name: postgres
+        env:
+        - name: POSTGRES_USER
+          value: "postgres"
+        - name: POSTGRES_PASSWORD
+          value: "password"
+        - name: POSTGRES_DB
+          value: "postgres"
+        - name: PGDATA
+          value: "/mount/data/postgresql"
+        image: gcr.io/devstats-gke/devstats:latest
+        command: ["/usr/local/bin/postgre-docker-entrypoint.sh", "postgres",]
+        ports:
+        - containerPort: 5432
+      volumes:
+      - name: "nfs"
+        persistentVolumeClaim:
+          claimName: "devstats-nfs"
+
