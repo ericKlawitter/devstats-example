@@ -15,7 +15,7 @@ spec:
           - name: devstats-cron
             image: gcr.io/devstats-gke/devstats:latest
             workingDir: "/mount/data/src/devstats"
-            command: ["devstats"]
+            command: ["devstats",]
             env:
             - name: PG_HOST
               value: "postgredb-0.postgredb.devstats-postgres.svc.cluster.local"
@@ -38,7 +38,6 @@ spec:
               value: "projects.yaml"
             - name: GHA2DB_REPOS_DIR
               value: "/mount/data/devstats_repos"
-            image: gcr.io/devstats-gke/devstats:latest
             volumeMounts:
             - mountPath: "/mount/data"
               name: "nfs"

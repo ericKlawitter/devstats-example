@@ -1,0 +1,45 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: devstats-backfill
+  namespace: devstats-postgres
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: devstats-backfill
+        image: gcr.io/devstats-gke/devstats:latest
+        imagePullPolicy: Always
+        workingDir: "/mount/data/src/devstats"
+        command: ["gha2db", "2018-01-22", "0", "2019-03-13", "0", "knative"]
+        env:
+        - name: PG_HOST
+          value: "postgredb-0.postgredb.devstats-postgres.svc.cluster.local"
+        - name: PG_DB
+          value: "knative"
+        - name: PG_PASS
+          value: "password"
+        - name: PG_PASS_ROLE
+          value: "ro_user"
+      # Specific to Postgres
+        - name: PGHOST
+          value: "postgredb-0.postgredb.devstats-postgres.svc.cluster.local"
+        - name: PGDATABASE
+          value: "knative"
+        - name: PGUSER
+          value: "gha_admin"
+        - name: PGPASSWORD
+          value: "password"
+        - name: GHA2DB_PROJECT
+          value: "projects.yaml"
+        - name: GHA2DB_REPOS_DIR
+          value: "/mount/data/devstats_repos"
+        volumeMounts:
+        - mountPath: "/mount/data"
+          name: "nfs"
+      terminationGracePeriodSeconds: 10
+      volumes:
+      - name: "nfs"
+        persistentVolumeClaim:
+          claimName: "devstats-nfs"
