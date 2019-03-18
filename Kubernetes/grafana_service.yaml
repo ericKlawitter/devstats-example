@@ -36,8 +36,8 @@ spec:
         - name: GF_PATHS_DATA
           value: "/mount/data/grafana"
         - name: GF_PATHS_PROVISIONING
-          value: "/mount/data/src/devstats/grafana/provisioning"
-     # - name: seecret
+          value: "/mount/data/src/devstats/grafana"
+     # - name: secret
      # todo - fill in secret value
         volumeMounts:
         - mountPath: "/mount/data"
