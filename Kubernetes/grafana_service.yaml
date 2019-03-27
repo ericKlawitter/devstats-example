@@ -9,7 +9,7 @@ spec:
     port: 3000
   selector:
     app: grafana
-  type: "NodePort"
+  type: LoadBalancer
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -36,9 +36,9 @@ spec:
         - name: GF_PATHS_DATA
           value: "/mount/data/grafana"
         - name: GF_PATHS_PROVISIONING
-          value: "/mount/data/src/devstats/grafana"
-     # - name: secret
-     # todo - fill in secret value
+          value: "/mount/data/src/devstats/grafana/provisioning"
+        - name: GF_AUTH_ANONYMOUS_ENABLED
+          value: "true"
         volumeMounts:
         - mountPath: "/mount/data"
           name: "nfs"
@@ -47,18 +47,3 @@ spec:
         persistentVolumeClaim:
           claimName: "devstats-nfs"
 ---
-apiVersion: extensions/v1beta1
-kind: Ingress
-metadata:
-  name: grafana-ingress
-  namespace: devstats-postgres
-  #annotations:
-spec:
-  rules:
-    #host: you should be able to set up knative.dev here
-  - http:
-      paths:
-      - path: "/*"
-        backend:
-          serviceName: grafana
-          servicePort: 3000
