@@ -28,7 +28,7 @@ spec:
     spec:
       containers:
       - image: grafana/grafana
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
         name: grafana
         ports:
         - containerPort: 3000
@@ -39,6 +39,10 @@ spec:
           value: "/mount/data/src/devstats/grafana/provisioning"
         - name: GF_AUTH_ANONYMOUS_ENABLED
           value: "true"
+        - name: GF_AUTH_ANONYMOUS_ORG_NAME
+          value: "Main Org."
+        - name: GF_AUTH_ANONYMOUS_ORG_ROLE
+          value: "Viewer"
         volumeMounts:
         - mountPath: "/mount/data"
           name: "nfs"
