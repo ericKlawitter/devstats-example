@@ -32,8 +32,12 @@ RUN groupadd -g 1000 postgres && \
 	useradd -r -u 1000 -g postgres --create-home --shell=/bin/bash postgres
 RUN apt-get install -y postgresql-client postgresql sudo gosu
 RUN mkdir -p /var/run/postgresql && chown -R postgres:postgres /var/run/postgresql && chmod 2777 /var/run/postgresql
+ENV PG_MAJOR 9.6
 ENV PATH $PATH:/usr/lib/postgresql/$PG_MAJOR/bin
-# TODO: Do we need t run docker_entrypoint?
+
+COPY postgre-docker-entrypoint.sh /usr/local/bin/
+RUN chmod a+x /usr/local/bin/postgre-docker-entrypoint.sh
+
 RUN adduser postgres sudo
 #DEVSTATS INSTALLATION
 
