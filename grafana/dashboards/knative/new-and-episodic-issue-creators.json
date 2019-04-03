@@ -252,7 +252,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "kubeflow",
+    "knative",
     "PRs"
   ],
   "templating": {

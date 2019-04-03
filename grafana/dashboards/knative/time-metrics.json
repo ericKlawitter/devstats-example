@@ -396,7 +396,7 @@
   "style": "dark",
   "tags": [
     "dashboard",
-    "kubeflow"
+    "knative"
   ],
   "templating": {
     "list": [

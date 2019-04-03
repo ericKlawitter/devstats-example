@@ -195,7 +195,7 @@
   "tags": [
     "companies",
     "dashboard",
-    "kubeflow"
+    "knative"
   ],
   "templating": {
     "list": [
