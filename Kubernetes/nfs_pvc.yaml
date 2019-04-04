@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: devstats-nfs
+  name: devstats-recreate
   namespace: devstats-postgres
 spec:
   accessModes:
@@ -11,15 +11,15 @@ spec:
     storage: 1000Gi
   nfs:
     # This should be the name of the fileshare in cloud filestore
-    path: /devstatsnfs
-    server: 10.0.26.226
+    path: /recreatenfs
+    server: 10.72.45.130
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs-storage
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: devstats-nfs
+  name: devstats-recreate
   namespace: devstats-postgres
 spec:
   accessModes:
@@ -28,4 +28,4 @@ spec:
     requests:
       storage: 50Gi
   storageClassName: nfs-storage
-  volumeName: devstats-nfs
+  volumeName: devstats-recreate

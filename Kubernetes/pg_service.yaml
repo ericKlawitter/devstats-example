@@ -1,32 +1,33 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: postgredb
+  name: postgres-db
   namespace: devstats-postgres
 spec:
   clusterIP: "None"
   ports:
   - port: 5432
+    protocol: TCP
   selector:
-    app: postgredb
+    app: postgres-db
 ---
 apiVersion: apps/v1
 kind: StatefulSet
 metadata:
-  name: postgredb
+  name: postgres-db
   namespace: devstats-postgres
   labels:
-    app: postgredb
+    app: postgres-db
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: postgredb
-  serviceName: postgredb
+      app: postgres-db
+  serviceName: postgres-db
   template:
     metadata:
       labels:
-        app: postgredb
+        app: postgres-db
     spec:
       containers:
       - name: postgres
@@ -39,15 +40,19 @@ spec:
           value: "postgres"
         - name: PGDATA
           value: "/mount/data/postgresql"
-        image: gcr.io/devstats-gke/devstats:latest
+        image: gcr.io/devstats-gke/devstats-postgres:latest
+        imagePullPolicy: Always
         command: ["/usr/local/bin/postgre-docker-entrypoint.sh", "postgres",]
         ports:
         - containerPort: 5432
+          #securityContext:
+          # runAsUser: 1000
+          # runAsGroup: 1000
         volumeMounts:
         - mountPath: "/mount/data"
           name: "nfs"
       volumes:
       - name: "nfs"
         persistentVolumeClaim:
-          claimName: "devstats-nfs"
+          claimName: "devstats-recreate"
 

@@ -21,7 +21,7 @@ metadata:
     app: devstats-cli
 spec:
   replicas: 1
-  serviceName: postgredb
+  serviceName: postgres-db
   selector:
     matchLabels:
       app: devstats-cli
@@ -36,7 +36,7 @@ spec:
         command: ["tail", "-f", "/dev/null",]
         env:
         - name: PG_HOST
-          value: "postgredb-0.postgredb.devstats-postgres.svc.cluster.local"
+          value: "postgres-db-0.postgres-db.devstats-postgres.svc.cluster.local"
         - name: PG_DB
           value: "knative"
         - name: PG_PASS
@@ -45,7 +45,7 @@ spec:
           value: "ro_user"
       # Specific to Postgres
         - name: PGHOST
-          value: "postgredb-0.postgredb.devstats-postgres.svc.cluster.local"
+          value: "postgres-db-0.postgres-db.devstats-postgres.svc.cluster.local"
         - name: PGDATABASE
           value: "knative"
         - name: PGUSER
@@ -69,5 +69,5 @@ spec:
           claimName: "cli-pvc"
       - name: "nfs"
         persistentVolumeClaim:
-          claimName: "devstats-nfs"
+          claimName: "devstats-recreate"
 
