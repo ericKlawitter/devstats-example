@@ -12,7 +12,7 @@ spec:
   nfs:
     # This should be the name of the fileshare in cloud filestore
     path: /recreatenfs
-    server: 10.72.45.130
+    server: 10.35.146.50
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs-storage
 ---
