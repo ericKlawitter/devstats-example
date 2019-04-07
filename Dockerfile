@@ -48,16 +48,16 @@ WORKDIR ${GOPATH}/src/devstats
 RUN make
 RUN make install
 
-ENV SRC_DIR /mount/data/src
+#ENV SRC_DIR /mount/data/src
 
-RUN mkdir -p ${SRC_DIR}
-WORKDIR ${SRC_DIR}
+#RUN mkdir -p ${SRC_DIR}
+#WORKDIR ${SRC_DIR}
 
-RUN mkdir -p /mount/data/devstats_repos
-RUN git clone https://github.com/ericKlawitter/devstats-example.git devstats
+#RUN mkdir -p /mount/data/devstats_repos
+#RUN git clone https://github.com/ericKlawitter/devstats-example.git devstats
 
-WORKDIR ${SRC_DIR}/devstats
-RUN ./scripts/copy_devstats_binaries.sh
+#WORKDIR ${SRC_DIR}/devstats
+#RUN ./scripts/copy_devstats_binaries.sh
 
-RUN rm -rf /etc/gha2db/ && ln -sf /mount/data/src/devstats/ /etc/gha2db
+#RUN rm -rf /etc/gha2db/ && ln -sf /mount/data/src/devstats/ /etc/gha2db
 
