@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: devstats-image
-        image: gcr.io/devstats-gke/devstats:nfs
+        image: gcr.io/devstats-gke/devstats:nomount
         command: ["tail", "-f", "/dev/null",]
         env:
         - name: PG_HOST
