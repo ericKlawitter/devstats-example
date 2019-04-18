@@ -21,7 +21,7 @@ metadata:
     app: devstats-cli
 spec:
   replicas: 1
-  serviceName: postgredb
+  serviceName: postgres-db
   selector:
     matchLabels:
       app: devstats-cli
@@ -32,11 +32,11 @@ spec:
     spec:
       containers:
       - name: devstats-image
-        image: gcr.io/devstats-gke/devstats:latest
+        image: gcr.io/devstats-gke/devstats:nomount
         command: ["tail", "-f", "/dev/null",]
         env:
         - name: PG_HOST
-          value: "postgredb-0.postgredb.devstats-postgres.svc.cluster.local"
+          value: "postgres-db-0.postgres-db.devstats-postgres.svc.cluster.local"
         - name: PG_DB
           value: "knative"
         - name: PG_PASS
@@ -45,7 +45,7 @@ spec:
           value: "ro_user"
       # Specific to Postgres
         - name: PGHOST
-          value: "postgredb-0.postgredb.devstats-postgres.svc.cluster.local"
+          value: "postgres-db-0.postgres-db.devstats-postgres.svc.cluster.local"
         - name: PGDATABASE
           value: "knative"
         - name: PGUSER
@@ -56,7 +56,7 @@ spec:
           value: "knative"
         - name: GHA2DB_REPOS_DIR
           value: "/mount/data/devstats_repos"
-        #workingDir: "/mount/data/src/devstats-knative/scripts"
+          #workingDir: "/mount/data/src/devstats/"
         volumeMounts:
         - mountPath: "/home"
           name: "cli-pvc"
@@ -69,5 +69,5 @@ spec:
           claimName: "cli-pvc"
       - name: "nfs"
         persistentVolumeClaim:
-          claimName: "devstats-nfs"
+          claimName: "devstats-recreate"
 
