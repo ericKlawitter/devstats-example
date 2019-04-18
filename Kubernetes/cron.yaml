@@ -18,7 +18,7 @@ spec:
             command: ["devstats",]
             env:
             - name: PG_HOST
-              value: "postgredb-0.postgredb.devstats-postgres.svc.cluster.local"
+              value: "postgres-db-0.postgres-db.devstats-postgres.svc.cluster.local"
             - name: PG_DB
               value: "knative"
             - name: PG_PASS
@@ -27,7 +27,7 @@ spec:
               value: "ro_user"
       # Specific to Postgres
             - name: PGHOST
-              value: "postgredb-0.postgredb.devstats-postgres.svc.cluster.local"
+              value: "postgres-db-0.postgres-db.devstats-postgres.svc.cluster.local"
             - name: PGDATABASE
               value: "knative"
             - name: PGUSER
@@ -45,5 +45,5 @@ spec:
           volumes:
           - name: "nfs"
             persistentVolumeClaim:
-              claimName: "devstats-nfs"
+              claimName: "devstats-recreate"
 
