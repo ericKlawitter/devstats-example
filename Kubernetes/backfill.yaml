@@ -12,10 +12,10 @@ spec:
         image: gcr.io/devstats-gke/devstats:latest
         imagePullPolicy: Always
         workingDir: "/mount/data/src/devstats"
-        command: ["gha2db", "2018-01-22", "0", "2019-03-13", "0", "knative"]
+        command: ["gha2db", "2018-01-22", "0", "2019-04-19", "9", "knative"]
         env:
         - name: PG_HOST
-          value: "postgredb-0.postgredb.devstats-postgres.svc.cluster.local"
+          value: "postgres-db-0.postgres-db.devstats-postgres.svc.cluster.local"
         - name: PG_DB
           value: "knative"
         - name: PG_PASS
@@ -24,7 +24,7 @@ spec:
           value: "ro_user"
       # Specific to Postgres
         - name: PGHOST
-          value: "postgredb-0.postgredb.devstats-postgres.svc.cluster.local"
+          value: "postgres-db-0.postgres-db.devstats-postgres.svc.cluster.local"
         - name: PGDATABASE
           value: "knative"
         - name: PGUSER
@@ -32,7 +32,7 @@ spec:
         - name: PGPASSWORD
           value: "password"
         - name: GHA2DB_PROJECT
-          value: "projects.yaml"
+          value: "knative"
         - name: GHA2DB_REPOS_DIR
           value: "/mount/data/devstats_repos"
         volumeMounts:
@@ -42,4 +42,4 @@ spec:
       volumes:
       - name: "nfs"
         persistentVolumeClaim:
-          claimName: "devstats-nfs"
+          claimName: "devstats-recreate"

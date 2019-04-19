@@ -28,36 +28,17 @@ RUN go get gopkg.in/yaml.v2 && \
 RUN apt-get install -y vim
 
 #POSTGRES INSTALLATION
-RUN groupadd -g 1000 postgres && \
-	useradd -r -u 1000 -g postgres --create-home --shell=/bin/bash postgres
-RUN apt-get install -y postgresql-client postgresql sudo gosu
-RUN mkdir -p /var/run/postgresql && chown -R postgres:postgres /var/run/postgresql && chmod 2777 /var/run/postgresql
+RUN apt-get install -y postgresql-client postgresql-9.6 sudo gosu
 ENV PG_MAJOR 9.6
 ENV PATH $PATH:/usr/lib/postgresql/$PG_MAJOR/bin
-
-COPY postgre-docker-entrypoint.sh /usr/local/bin/
-RUN chmod a+x /usr/local/bin/postgre-docker-entrypoint.sh
-
 RUN adduser postgres sudo
-#DEVSTATS INSTALLATION
 
+#DEVSTATS INSTALLATION
 RUN mkdir -p ${GOPATH}/src
 WORKDIR ${GOPATH}/src
 RUN git clone https://github.com/ericKlawitter/devstats.git
 WORKDIR ${GOPATH}/src/devstats
 RUN make
 RUN make install
-
-ENV SRC_DIR /mount/data/src
-
-RUN mkdir -p ${SRC_DIR}
-WORKDIR ${SRC_DIR}
-
-RUN mkdir -p /mount/data/devstats_repos
-RUN git clone https://github.com/ericKlawitter/devstats-example.git devstats
-
-WORKDIR ${SRC_DIR}/devstats
-RUN ./scripts/copy_devstats_binaries.sh
-
-RUN rm -rf /etc/gha2db/ && ln -sf /mount/data/src/devstats/ /etc/gha2db
-
+RUN chmod +x scripts/setup_db.sh
+RUN chmod +x scripts/setup_mount.sh
