@@ -11,8 +11,8 @@ spec:
     storage: 1000Gi
   nfs:
     # This should be the name of the fileshare in cloud filestore
-    path: /devstats4nfs
-    server: 10.160.187.114
+    path: /nfs5clone
+    server: 10.234.202.202
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs-storage
 ---
