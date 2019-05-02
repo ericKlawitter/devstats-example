@@ -36,9 +36,10 @@ RUN adduser postgres sudo
 #DEVSTATS INSTALLATION
 RUN mkdir -p ${GOPATH}/src
 WORKDIR ${GOPATH}/src
-RUN git clone https://github.com/ericKlawitter/devstats.git
+RUN git clone https://github.com/cncf/devstats
 WORKDIR ${GOPATH}/src/devstats
+RUN git checkout 56f581a2f03d6fd9f718faa9c2b1a885e1e9076f
 RUN make
 RUN make install
-RUN chmod +x scripts/setup_db.sh
-RUN chmod +x scripts/setup_mount.sh
+COPY ["scripts/setup_mount.sh", "scripts/setup_db.sh", "${GOPATH}/src/"]
+RUN rm -rf /etc/gha2db && ln -sf /mount/data/src/devstats /etc/gha2db

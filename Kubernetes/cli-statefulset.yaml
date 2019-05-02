@@ -35,29 +35,9 @@ spec:
         image: gcr.io/devstats-gke/devstats:latest
         imagePullPolicy: Always
         command: ["tail", "-f", "/dev/null",]
-        env:
-        - name: PG_HOST
-          value: "postgres-db-0.postgres-db.devstats-postgres.svc.cluster.local"
-        - name: PG_DB
-          value: "knative"
-        - name: PG_PASS
-          value: "password"
-        - name: PG_PASS_ROLE
-          value: "ro_user"
-      # Specific to Postgres
-        - name: PGHOST
-          value: "postgres-db-0.postgres-db.devstats-postgres.svc.cluster.local"
-        - name: PGDATABASE
-          value: "knative"
-        - name: PGUSER
-          value: "gha_admin"
-        - name: PGPASSWORD
-          value: "password"
-        - name: GHA2DB_PROJECT
-          value: "knative"
-        - name: GHA2DB_REPOS_DIR
-          value: "/mount/data/devstats_repos"
-          #workingDir: "/mount/data/src/devstats/"
+        envFrom:
+        - configMapRef:
+            name: devstats-env
         volumeMounts:
         - mountPath: "/home"
           name: "cli-pvc"
