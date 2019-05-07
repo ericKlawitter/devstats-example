@@ -3,7 +3,7 @@ apiVersion: batch/v1beta1
 kind: CronJob
 metadata:
   name: devstats-cron
-  namespace: devstats-postgres
+  namespace: default
 spec:
   schedule: "*/10 * * * *"
   jobTemplate:
@@ -15,8 +15,9 @@ spec:
           - name: devstats-cron
             image: gcr.io/devstats-gke/devstats:latest
             imagePullPolicy: Always
-            workingDir: "/mount/data/src/devstats"
-            command: ["devstats",]
+            workingDir: "/mount/data/src/test-infra/devstats"
+            command: ["/bin/sh","-c"]
+            args: ["git pull origin master; ./devstats"]
             envFrom:
             - configMapRef:
                 name: devstats-env
@@ -27,5 +28,5 @@ spec:
           volumes:
           - name: "nfs"
             persistentVolumeClaim:
-              claimName: "devstats-recreate"
+              claimName: "devstats-claim"
 

@@ -2,7 +2,7 @@ apiVersion: batch/v1
 kind: Job
 metadata:
   name: devstats-backfill
-  namespace: devstats-postgres
+  namespace: default
 spec:
   template:
     spec:
@@ -11,7 +11,7 @@ spec:
       - name: devstats-backfill
         image: gcr.io/devstats-gke/devstats:latest
         imagePullPolicy: Always
-        workingDir: "/mount/data/src/devstats"
+        workingDir: "/mount/data/src/test-infra/devstats"
         command: ["gha2db", "2019-03-22", "0", "2019-05-02", "19", "knative"]
         envFrom:
         - configMapRef:
@@ -23,4 +23,4 @@ spec:
       volumes:
       - name: "nfs"
         persistentVolumeClaim:
-          claimName: "devstats-recreate"
+          claimName: "devstats-claim"
