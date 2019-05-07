@@ -12,7 +12,7 @@ spec:
         image: gcr.io/devstats-gke/devstats:latest
         imagePullPolicy: Always
         workingDir: "/mount/data/src/test-infra/devstats"
-        command: ["gha2db", "2019-03-22", "0", "2019-05-02", "19", "knative"]
+        command: ["gha2db", "2019-03-22", "0", "`date +%Y-%m-%d`", "23", "knative"]
         envFrom:
         - configMapRef:
             name: devstats-env
