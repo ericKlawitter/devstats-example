@@ -43,6 +43,11 @@ spec:
           value: "Main Org."
         - name: GF_AUTH_ANONYMOUS_ORG_ROLE
           value: "Viewer"
+        - name : GF_SECURITY_ADMIN_PASSWORD
+          valueFrom:
+            securityRef:
+              name: grafana_pass
+              key: grafana_admin_password
         volumeMounts:
         - mountPath: "/mount/data"
           name: "nfs"

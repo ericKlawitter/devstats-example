@@ -6,12 +6,10 @@ metadata:
 data:
   PG_HOST: "postgres-db-0.postgres-db.default.svc.cluster.local"
   PG_DB: "knative"
-  PG_PASS: "password"
   PG_PASS_ROLE: "ro_user"
   PGHOST: "postgres-db-0.postgres-db.default.svc.cluster.local"
   PGDATABASE: "knative"
   PGUSER: "gha_admin"
-  PGPASSWORD: "password"
   GHA2DB_PROJECT: "knative"
   GHA2DB_REPOS_DIR: "/mount/data/devstats_repos"
 

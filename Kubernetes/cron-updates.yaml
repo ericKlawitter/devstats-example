@@ -21,6 +21,17 @@ spec:
             envFrom:
             - configMapRef:
                 name: devstats-env
+            env:
+            - name: PG_PASS
+              valueFrom:
+                securityRef:
+                  name: gha_admin_pass
+                  value: pg_gha_admin_password
+            - name: PGPASSWORD
+              valueFrom:
+                securityRef:
+                  name: gha_admin_pass
+                  value: pg_gha_admin_password
             volumeMounts:
             - mountPath: "/mount/data"
               name: "nfs"
