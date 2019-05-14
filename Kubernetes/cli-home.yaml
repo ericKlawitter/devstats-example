@@ -43,12 +43,12 @@ spec:
           valueFrom:
             secretKeyRef:
               name: gha-admin-pass
-              value: pg_gha_admin_password
+              key: pg_gha_admin_password
         - name: PGPASSWORD
           valueFrom:
             secretKeyRef:
               name: gha-admin-pass
-              value: pg_gha_admin_password
+              key: pg_gha_admin_password
         volumeMounts:
         - mountPath: "/home"
           name: "cli-pvc"
