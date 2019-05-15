@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: PersistentVolume
 metadata:
-  name: devstats-claim
+  name: devstats-volume
   namespace: default
 spec:
   accessModes:
@@ -11,8 +11,8 @@ spec:
     storage: 1000Gi
   nfs:
     # This should be the name of the fileshare in cloud filestore
-    path: /devstats7
-    server: 10.14.200.210
+    path: /devstats_secret
+    server: 10.15.111.42
   persistentVolumeReclaimPolicy: Retain
   storageClassName: nfs-storage
 ---

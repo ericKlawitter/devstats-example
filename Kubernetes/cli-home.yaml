@@ -38,6 +38,17 @@ spec:
         envFrom:
         - configMapRef:
             name: devstats-env
+        env:
+        - name: PG_PASS
+          valueFrom:
+            secretKeyRef:
+              name: postgres-pass
+              key: pg_postgres_password
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-pass
+              key: pg_postgres_password
         volumeMounts:
         - mountPath: "/home"
           name: "cli-pvc"

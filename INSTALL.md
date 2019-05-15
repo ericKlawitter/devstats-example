@@ -5,8 +5,8 @@
    will create the k8s objects required to build the devstats database.
 1. Run `kubectl exec -it devstats-cli-0 /bin/bash` to execute commands from the CLI. From here we will run commands to initialize the devstats binaries.
 1. Run the following scripts. These will create the devstats tags and annotations.
-    1. `scripts/setup_db.sh`
-    1. `scripts/setup_mount.sh`
+    1. `../scripts/setup_db.sh`
+    1. `../scripts/setup_mount.sh`
     1. `/mount/data/src/devstats/shared/tags.sh`
     1. `/mount/data/src/devstats/annotations`
 1. Exit out of the pod and run `kubectl create -f Kubernetes/batch-job-backfill.yaml`. This creates the job to backfill the database with the github archive data. After that job finishes (it takes a few hours), run `kubectl create -f Kubernetes/cron-updates.yaml`. This creates the hourly job to update the database.

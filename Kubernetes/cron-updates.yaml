@@ -15,12 +15,23 @@ spec:
           - name: devstats-cron
             image: gcr.io/devstats-gke/devstats:latest
             imagePullPolicy: Always
-            workingDir: "/mount/data/src/test-infra/devstats"
+            workingDir: "/mount/data/src/devstats"
             command: ["/bin/sh","-c"]
             args: ["git pull origin master; ./devstats"]
             envFrom:
             - configMapRef:
                 name: devstats-env
+            env:
+            - name: PG_PASS
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-pass
+                  key: pg_postgres_password
+            - name: PGPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: postgres-pass
+                  key: pg_postgres_password
             volumeMounts:
             - mountPath: "/mount/data"
               name: "nfs"

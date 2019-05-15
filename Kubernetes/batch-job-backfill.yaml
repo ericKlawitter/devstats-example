@@ -11,11 +11,23 @@ spec:
       - name: devstats-backfill
         image: gcr.io/devstats-gke/devstats:latest
         imagePullPolicy: Always
-        workingDir: "/mount/data/src/test-infra/devstats"
-        command: ["gha2db", "2019-03-22", "0", "`date +%Y-%m-%d`", "23", "knative"]
+        workingDir: "/mount/data/src/devstats"
+        command: ["/bin/bash", "-c"]
+        args: ["./gha2db 2018-01-22 0 `date +%Y-%m-%d` 23 knative"]
         envFrom:
         - configMapRef:
             name: devstats-env
+        env:
+        - name: PG_PASS
+          valueFrom:
+            secretKeyRef:
+              name: postgres-pass
+              key: pg_postgres_password
+        - name: PGPASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgres-pass
+              key: pg_postgres_password
         volumeMounts:
         - mountPath: "/mount/data"
           name: "nfs"
@@ -24,3 +36,4 @@ spec:
       - name: "nfs"
         persistentVolumeClaim:
           claimName: "devstats-claim"
+

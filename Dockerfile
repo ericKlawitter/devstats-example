@@ -42,4 +42,3 @@ RUN git checkout 56f581a2f03d6fd9f718faa9c2b1a885e1e9076f
 RUN make
 RUN make install
 COPY ["scripts/setup_mount.sh", "scripts/setup_db.sh", "${GOPATH}/src/"]
-RUN rm -rf /etc/gha2db && ln -sf /mount/data/src/devstats /etc/gha2db

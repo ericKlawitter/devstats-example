@@ -16,9 +16,9 @@ datasources:
   # <string> url
   url: postgres-db-0.postgres-db.default.svc.cluster.local
   # <string> database password, if used
-  password: password
+  password: ${PG_PASS}
   # <string> database user, if used
-  user: ro_user
+  user: postgres
   # <string> database name, if used
   database: knative
   # <map> fields that will be converted to json and stored in jsonData
@@ -32,8 +32,8 @@ datasources:
     tlsCACert: "..."
     tlsClientCert: "..."
     tlsClientKey: "..."
-    user: "ro_user"
-    password: "password"
+    user: postgres
+    password: ${PG_PASS}
   version: 1
   # <bool> allow users to edit datasources from the UI.
   editable: false
