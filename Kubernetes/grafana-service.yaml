@@ -27,7 +27,7 @@ spec:
         app: grafana
     spec:
       containers:
-      - image: grafana/grafana
+      - image: grafana/grafana:master
         imagePullPolicy: Always
         name: grafana
         ports:
@@ -45,9 +45,14 @@ spec:
           value: "Viewer"
         - name : GF_SECURITY_ADMIN_PASSWORD
           valueFrom:
-            securityRef:
-              name: grafana_pass
+            secretKeyRef:
+              name: grafana-pass
               key: grafana_admin_password
+        - name: PG_PASS
+          valueFrom:
+            secretKeyRef:
+              name: postgres-pass
+              key: pg_postgres_password
         volumeMounts:
         - mountPath: "/mount/data"
           name: "nfs"

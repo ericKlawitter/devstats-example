@@ -18,7 +18,7 @@ datasources:
   # <string> database password, if used
   password: ${PG_PASS}
   # <string> database user, if used
-  user: gha_admin
+  user: postgres
   # <string> database name, if used
   database: knative
   # <map> fields that will be converted to json and stored in jsonData
@@ -32,7 +32,7 @@ datasources:
     tlsCACert: "..."
     tlsClientCert: "..."
     tlsClientKey: "..."
-    user: gha_admin
+    user: postgres
     password: ${PG_PASS}
   version: 1
   # <bool> allow users to edit datasources from the UI.
