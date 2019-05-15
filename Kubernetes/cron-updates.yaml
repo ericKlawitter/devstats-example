@@ -15,7 +15,7 @@ spec:
           - name: devstats-cron
             image: gcr.io/devstats-gke/devstats:latest
             imagePullPolicy: Always
-            workingDir: "/mount/data/src/test-infra/devstats"
+            workingDir: "/mount/data/src/devstats"
             command: ["/bin/sh","-c"]
             args: ["git pull origin master; ./devstats"]
             envFrom:
@@ -26,12 +26,12 @@ spec:
               valueFrom:
                 secretKeyRef:
                   name: gha-admin-pass
-                  value: pg_gha_admin_password
+                  key: pg_gha_admin_password
             - name: PGPASSWORD
               valueFrom:
                 secretKeyRef:
                   name: gha-admin-pass
-                  value: pg_gha_admin_password
+                  key: pg_gha_admin_password
             volumeMounts:
             - mountPath: "/mount/data"
               name: "nfs"

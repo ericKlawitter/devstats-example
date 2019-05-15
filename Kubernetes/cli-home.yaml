@@ -42,13 +42,13 @@ spec:
         - name: PG_PASS
           valueFrom:
             secretKeyRef:
-              name: gha-admin-pass
-              key: pg_gha_admin_password
+              name: postgres-pass
+              key: pg_postgres_password
         - name: PGPASSWORD
           valueFrom:
             secretKeyRef:
-              name: gha-admin-pass
-              key: pg_gha_admin_password
+              name: postgres-pass
+              key: pg_postgres_password
         volumeMounts:
         - mountPath: "/home"
           name: "cli-pvc"
